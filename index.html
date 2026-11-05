@@ -22,6 +22,45 @@
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
+    /* Selector de idioma */
+    .lang-switch {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      background: rgba(255,255,255,.88);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(29,53,87,.12);
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .lang-switch button {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: .6px;
+      color: var(--navy);
+      opacity: .45;
+      background: none;
+      border: none;
+      border-radius: 999px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: opacity .18s, color .18s, background .18s;
+    }
+    .lang-switch button:hover { opacity: .85; }
+    .lang-switch button.active {
+      opacity: 1;
+      color: #fff;
+      background: var(--red);
+    }
+    .lang-switch button:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; }
+
     /* Páginas */
     .page { display: none; min-height: 100vh; }
     .page.active { display: flex; flex-direction: column; animation: pagein .45s ease both; }
@@ -337,6 +376,15 @@
 
     /* ═══ DISPOSITIVOS MÓVILES (Optimización Estética Completa) ═══ */
     @media (max-width: 768px) {
+      /* Selector de idioma en móvil */
+      .lang-switch {
+        top: 14px;
+        right: 16px;
+      }
+      .lang-switch button {
+        padding: 5px 9px;
+      }
+
       /* HOME MOBILE */
       #page-home {
         flex-direction: column !important;
@@ -545,17 +593,24 @@
 </head>
 <body>
 
+<!-- ══ SELECTOR DE IDIOMA (visible en todas las páginas) ══════════ -->
+<div class="lang-switch" role="group" aria-label="Language / Idioma / Lingua">
+  <button type="button" data-lang="en" title="English" lang="en">EN</button>
+  <button type="button" data-lang="es" title="Español" lang="es">ES</button>
+  <button type="button" data-lang="gl" title="Galego" lang="gl">GL</button>
+</div>
+
 <!-- ══ HOME ══════════════════════════════════════════════════════ -->
 <section id="page-home" class="page">
   <div class="home-photo-side">
-    <img src="images\image-0343ef57-343e-4afd-b57e-de25d8177a04.jpg" alt="Pablo Pardavila" onerror="this.parentElement.style.background='#1d3557'" />
+    <img src="images/image-0343ef57-343e-4afd-b57e-de25d8177a04.jpg" alt="Pablo Pardavila" onerror="this.parentElement.style.background='#1d3557'" />
     <div class="home-overlay">
       <div class="home-name">Pablo<br>Pardavila</div>
       <nav class="home-nav-links">
-        <a href="#cv"            onclick="nav('cv')">CV</a>
-        <a href="#research"      onclick="nav('research')">Research</a>
-        <a href="#teaching"      onclick="nav('teaching')">Teaching</a>
-        <a href="#dissemination" onclick="nav('dissemination')">Scientific Dissemination</a>
+        <a href="#cv"            onclick="nav('cv')"            data-i18n="nav.cv">CV</a>
+        <a href="#research"      onclick="nav('research')"      data-i18n="nav.research">Research</a>
+        <a href="#teaching"      onclick="nav('teaching')"      data-i18n="nav.teaching">Teaching</a>
+        <a href="#dissemination" onclick="nav('dissemination')" data-i18n="nav.dissemination">Scientific Dissemination</a>
       </nav>
       <div class="home-socials">
         <a href="https://github.com/pablopardavila" target="_blank">GitHub</a>
@@ -566,17 +621,17 @@
   </div>
   <div class="home-bio-side">
     <div class="home-bio-text">
-      <p>Hello! I am a Ph.&nbsp;D. researcher at<br><a href="https://www.uc3m.es" target="_blank"><em>University Carlos III of Madrid</em></a>.</p>
-      <p>I am currently researching the individual drivers of support for undemocratic practices under the supervision of Simon Chauchard.</p>
-      <p>Welcome to my webpage!</p>
+      <p data-i18n="home.bio1">Hello! I am a Ph.&nbsp;D. researcher at<br><a href="https://www.uc3m.es" target="_blank"><em>University Carlos III of Madrid</em></a>.</p>
+      <p data-i18n="home.bio2">I am currently researching the individual drivers of support for undemocratic practices under the supervision of Simon Chauchard.</p>
+      <p data-i18n="home.bio3">Welcome to my webpage!</p>
     </div>
 
     <!-- Menú móvil nativo integrado de forma estética en la biografía -->
     <div class="home-mobile-nav">
-      <a href="#cv" onclick="nav('cv')">CV</a>
-      <a href="#research" onclick="nav('research')">Research</a>
-      <a href="#teaching" onclick="nav('teaching')">Teaching</a>
-      <a href="#dissemination" onclick="nav('dissemination')">Scientific Dissemination</a>
+      <a href="#cv" onclick="nav('cv')" data-i18n="nav.cv">CV</a>
+      <a href="#research" onclick="nav('research')" data-i18n="nav.research">Research</a>
+      <a href="#teaching" onclick="nav('teaching')" data-i18n="nav.teaching">Teaching</a>
+      <a href="#dissemination" onclick="nav('dissemination')" data-i18n="nav.dissemination">Scientific Dissemination</a>
     </div>
 
     <div class="home-email">
@@ -600,10 +655,10 @@
     <aside class="sidebar">
       <div class="sidebar-logo"><a href="#home" onclick="nav('home')">Pablo Pardavila</a></div>
       <nav class="sidebar-nav">
-        <a href="#cv"            onclick="nav('cv')" class="cur">CV</a>
-        <a href="#research"      onclick="nav('research')">Research</a>
-        <a href="#teaching"      onclick="nav('teaching')">Teaching</a>
-        <a href="#dissemination" onclick="nav('dissemination')">Scientific Dissemination</a>
+        <a href="#cv"            onclick="nav('cv')" class="cur"  data-i18n="nav.cv">CV</a>
+        <a href="#research"      onclick="nav('research')"      data-i18n="nav.research">Research</a>
+        <a href="#teaching"      onclick="nav('teaching')"      data-i18n="nav.teaching">Teaching</a>
+        <a href="#dissemination" onclick="nav('dissemination')" data-i18n="nav.dissemination">Scientific Dissemination</a>
       </nav>
       <div class="sidebar-socials">
         <a href="https://linkedin.com/in/pablopardavila" target="_blank">LinkedIn</a>
@@ -612,44 +667,44 @@
       </div>
     </aside>
     <div class="inner-content">
-      <p class="page-label">Curriculum Vitae</p>
+      <p class="page-label" data-i18n="cv.label">Curriculum Vitae</p>
       <h2 class="page-title">CV</h2>
 
       <div class="cv-block">
-        <div class="cv-block-title">Education</div>
+        <div class="cv-block-title" data-i18n="cv.education">Education</div>
         <div class="cv-row">
-          <span class="cv-year">2025-2029 (expected)</span>
-          <div class="cv-info"><h4>Ph.D. in Social Sciences</h4><p>Universidad Carlos III de Madrid<br>Supervisor: Simon Chauchard</p></div>
+          <span class="cv-year" data-i18n="cv.phd.year">2025-2029 (expected)</span>
+          <div class="cv-info"><h4 data-i18n="cv.phd.title">Ph.D. in Social Sciences</h4><p data-i18n="cv.phd.place">Universidad Carlos III de Madrid<br>Supervisor: Simon Chauchard</p></div>
         </div>
         <div class="cv-row">
           <span class="cv-year">2023 – 2025</span>
-          <div class="cv-info"><h4>M.A. in Social Sciences</h4><p>Juan Linz Institute (UC3M)</p></div>
+          <div class="cv-info"><h4 data-i18n="cv.ma.title">M.A. in Social Sciences</h4><p data-i18n="cv.ma.place">Juan Linz Institute (UC3M)</p></div>
         </div>
         <div class="cv-row">
           <span class="cv-year">2018 – 2023</span>
-          <div class="cv-info"><h4>Dual B.A. in International Studies and Political Science</h4><p>Universidad Carlos III de Madrid</p></div>
+          <div class="cv-info"><h4 data-i18n="cv.ba.title">Dual B.A. in International Studies and Political Science</h4><p data-i18n="cv.ba.place">Universidad Carlos III de Madrid</p></div>
         </div>
       </div>
 
       <div class="cv-block">
-        <div class="cv-block-title">Research Interests</div>
+        <div class="cv-block-title" data-i18n="cv.interests">Research Interests</div>
         <div class="cv-row">
-          <span class="cv-year">Interests</span>
-          <div class="cv-info"><h4>Political Psychology · Comparative politics · Political Violence</h4></div>
+          <span class="cv-year" data-i18n="cv.interests.row">Interests</span>
+          <div class="cv-info"><h4 data-i18n="cv.interests.list">Political Psychology · Comparative politics · Political Violence</h4></div>
         </div>
       </div>
 
       <div class="cv-block">
-        <div class="cv-block-title">Projects</div>
+        <div class="cv-block-title" data-i18n="cv.projects">Projects</div>
         <div class="cv-row">
           <span class="cv-year">2025 – 2029</span>
-          <div class="cv-info"><h4>DESPOLARIZARNOS</h4><p>Predoctoral Researcher, UC3M.<br>PI: Simon Chauchard<br>Funding: Agencia Estatal de Investigación (Spanish Government) - ATRAE Project</p></div>
+          <div class="cv-info"><h4>DESPOLARIZARNOS</h4><p data-i18n="cv.proj.desc">Predoctoral Researcher, UC3M.<br>PI: Simon Chauchard<br>Funding: Agencia Estatal de Investigación (Spanish Government) - ATRAE Project</p></div>
         </div>
       </div>
 
       <a class="cv-btn" href="https://docs.google.com/viewer?url=https://www.uc3m.es/departamento-ciencias-sociales/media/departamento-ciencias-sociales/doc/archivo/doc_pardavila-pablo/pablo-pardavila-cv-phd.pdf" target="_blank">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        View CV (PDF)
+        <span data-i18n="cv.btn">View CV (PDF)</span>
       </a>
 
       <!-- Redes en pie de página móvil -->
@@ -671,10 +726,10 @@
     <aside class="sidebar">
       <div class="sidebar-logo"><a href="#home" onclick="nav('home')">Pablo Pardavila</a></div>
       <nav class="sidebar-nav">
-        <a href="#cv"            onclick="nav('cv')">CV</a>
-        <a href="#research"      onclick="nav('research')" class="cur">Research</a>
-        <a href="#teaching"      onclick="nav('teaching')">Teaching</a>
-        <a href="#dissemination" onclick="nav('dissemination')">Scientific Dissemination</a>
+        <a href="#cv"            onclick="nav('cv')"            data-i18n="nav.cv">CV</a>
+        <a href="#research"      onclick="nav('research')" class="cur" data-i18n="nav.research">Research</a>
+        <a href="#teaching"      onclick="nav('teaching')"      data-i18n="nav.teaching">Teaching</a>
+        <a href="#dissemination" onclick="nav('dissemination')" data-i18n="nav.dissemination">Scientific Dissemination</a>
       </nav>
       <div class="sidebar-socials">
         <a href="https://linkedin.com/in/pablopardavila" target="_blank">LinkedIn</a>
@@ -683,21 +738,21 @@
       </div>
     </aside>
     <div class="inner-content">
-      <p class="page-label">Academic Work</p>
-      <h2 class="page-title">Research</h2>
-      <p class="research-intro">Here you can find my research in progress.</p>
+      <p class="page-label" data-i18n="research.label">Academic Work</p>
+      <h2 class="page-title" data-i18n="nav.research">Research</h2>
+      <p class="research-intro" data-i18n="research.intro">Here you can find my research in progress.</p>
       
       <div class="paper">
-        <p class="paper-status">Book Chapter (under review)</p>
-        <h3> Misinformation, Polarization and Anti-Democratic Attitudes in <i>The SAGE Handbook of Democratization</i></h3>
+        <p class="paper-status" data-i18n="paper1.status">Book Chapter (under review)</p>
+        <h3 data-i18n="paper1.title"> Misinformation, Polarization and Anti-Democratic Attitudes in <i>The SAGE Handbook of Democratization</i></h3>
         <p class="paper-authors">Simon Chauchard & Pablo Pardavila</p>
       </div>
 
       <div class="paper">
-        <p class="paper-status">Working paper</p>
+        <p class="paper-status" data-i18n="paper2.status">Working paper</p>
         <h3>Support Communities and Terrorist Recruitment</h3>
         <p class="paper-authors">Pablo Pardavila</p>
-        <p class="paper-desc">I show how support communities drive terrorist recruitment by analyzing Basque municipal-level data for the case of ETA.</p>
+        <p class="paper-desc" data-i18n="paper2.desc">I show how support communities drive terrorist recruitment by analyzing Basque municipal-level data for the case of ETA.</p>
       </div>
 
     
@@ -720,10 +775,10 @@
     <aside class="sidebar">
       <div class="sidebar-logo"><a href="#home" onclick="nav('home')">Pablo Pardavila</a></div>
       <nav class="sidebar-nav">
-        <a href="#cv"            onclick="nav('cv')">CV</a>
-        <a href="#research"      onclick="nav('research')">Research</a>
-        <a href="#teaching"      onclick="nav('teaching')" class="cur">Teaching</a>
-        <a href="#dissemination" onclick="nav('dissemination')">Scientific Dissemination</a>
+        <a href="#cv"            onclick="nav('cv')"            data-i18n="nav.cv">CV</a>
+        <a href="#research"      onclick="nav('research')"      data-i18n="nav.research">Research</a>
+        <a href="#teaching"      onclick="nav('teaching')" class="cur" data-i18n="nav.teaching">Teaching</a>
+        <a href="#dissemination" onclick="nav('dissemination')" data-i18n="nav.dissemination">Scientific Dissemination</a>
       </nav>
       <div class="sidebar-socials">
         <a href="https://linkedin.com/in/pablopardavila" target="_blank">LinkedIn</a>
@@ -732,14 +787,14 @@
       </div>
     </aside>
     <div class="inner-content">
-      <h2 class="page-title">Teaching</h2>
+      <h2 class="page-title" data-i18n="nav.teaching">Teaching</h2>
 
           <div class="course">
         <div style="flex: 1;">
           <p class="course-tag">UC3M</p>
-          <h3>Social Psychology</h3>
+          <h3 data-i18n="teach.sp.title">Social Psychology</h3>
           <p class="course-meta">
-            B.A. in Political Science, undergraduate seminar · Fall 2026. 
+            <span data-i18n="teach.sp.meta">B.A. in Political Science, undergraduate seminar · Fall 2026.</span>
           </p>
         </div>
         <a href="#" target="_blank" class="course-img-link">
@@ -750,9 +805,9 @@
       <div class="course">
         <div style="flex: 1;">
           <p class="course-tag">UC3M</p>
-          <h3>Conflict and Violence</h3>
+          <h3 data-i18n="teach.cv.title">Conflict and Violence</h3>
           <p class="course-meta">
-            Dual B.A. in International Studies and Economics, undergraduate seminar · Fall 2026. 
+            <span data-i18n="teach.cv.meta">Dual B.A. in International Studies and Economics, undergraduate seminar · Fall 2026.</span>
           </p>
         </div>
         <a href="#" target="_blank" class="course-img-link">
@@ -763,10 +818,10 @@
       <div class="course">
         <div style="flex: 1;">
           <p class="course-tag">UC3M</p>
-          <h3>Security, Peace, and Conflicts Resolution</h3>
+          <h3 data-i18n="teach.spcr.title">Security, Peace, and Conflicts Resolution</h3>
           <p class="course-meta">
-            Dual B.A. in International Studies and Economics, undergraduate seminar · Spring 2026. 
-            <a href="https://drive.google.com/file/d/1qAe5GgTUzX9ZVf6RfdUmg6FJ8FWAWhe6/view?usp=drive_link" style="color: #eb4034; text-decoration: none; font-weight: 500;">Syllabus</a>
+            <span data-i18n="teach.spcr.meta">Dual B.A. in International Studies and Economics, undergraduate seminar · Spring 2026.</span>
+            <a href="https://drive.google.com/file/d/1qAe5GgTUzX9ZVf6RfdUmg6FJ8FWAWhe6/view?usp=drive_link" style="color: #eb4034; text-decoration: none; font-weight: 500;" data-i18n="teach.syllabus">Syllabus</a>
           </p>
         </div>
         <a href="https://drive.google.com/file/d/1QpR2UD_fGUIK0bmK_lJKnr_v0FwJZC1Y/view?usp=drive_link" target="_blank" class="course-img-link">
@@ -777,10 +832,10 @@
       <div class="course">
         <div style="flex: 1;">
           <p class="course-tag">UC3M</p>
-          <h3>War, Peace, and Political Violence</h3>
+          <h3 data-i18n="teach.wppv.title">War, Peace, and Political Violence</h3>
           <p class="course-meta">
-            B.A. in History and Politics, undergraduate seminar · Fall 2025. 
-            <a href="https://drive.google.com/file/d/1QpR2UD_fGUIK0bmK_lJKnr_v0FwJZC1Y/view?usp=drive_link" style="color: #eb4034; text-decoration: none; font-weight: 500;">Syllabus</a>
+            <span data-i18n="teach.wppv.meta">B.A. in History and Politics, undergraduate seminar · Fall 2025.</span>
+            <a href="https://drive.google.com/file/d/1QpR2UD_fGUIK0bmK_lJKnr_v0FwJZC1Y/view?usp=drive_link" style="color: #eb4034; text-decoration: none; font-weight: 500;" data-i18n="teach.syllabus">Syllabus</a>
           </p>
         </div>
         <a href="https://drive.google.com/file/d/1QpR2UD_fGUIK0bmK_lJKnr_v0FwJZC1Y/view?usp=drive_link" target="_blank" class="course-img-link">
@@ -807,10 +862,10 @@
     <aside class="sidebar">
       <div class="sidebar-logo"><a href="#home" onclick="nav('home')">Pablo Pardavila</a></div>
       <nav class="sidebar-nav">
-        <a href="#cv"            onclick="nav('cv')">CV</a>
-        <a href="#research"      onclick="nav('research')">Research</a>
-        <a href="#teaching"      onclick="nav('teaching')">Teaching</a>
-        <a href="#dissemination" onclick="nav('dissemination')" class="cur">Scientific Dissemination</a>
+        <a href="#cv"            onclick="nav('cv')"            data-i18n="nav.cv">CV</a>
+        <a href="#research"      onclick="nav('research')"      data-i18n="nav.research">Research</a>
+        <a href="#teaching"      onclick="nav('teaching')"      data-i18n="nav.teaching">Teaching</a>
+        <a href="#dissemination" onclick="nav('dissemination')" class="cur" data-i18n="nav.dissemination">Scientific Dissemination</a>
       </nav>
       <div class="sidebar-socials">
         <a href="https://linkedin.com/in/pablopardavila" target="_blank">LinkedIn</a>
@@ -819,21 +874,12 @@
       </div>
     </aside>
     <div class="inner-content">
-      <p class="page-label">RESEARCH, LEARN, AND SHARE</p>
-      <h2 class="page-title">Scientific dissemination</h2>
+      <p class="page-label" data-i18n="diss.label">RESEARCH, LEARN, AND SHARE</p>
+      <h2 class="page-title" data-i18n="diss.title">Scientific dissemination</h2>
      
       <div>
-        <p> 
-          [ENG] 
-          <br>
-          I love researching and learning through research, but if there's something I'm even more passionate about, it's sharing all that knowledge. Whether through podcasts, talks, or seminars, spreading science is a passion of mine.
-        </p> 
-        <p> 
-          <br>
-          [ESP] 
-          <br>
-          Me encanta investigar y aprender investigando, pero si hay algo que me apasiona más es compartir todo ese conocimiento. Ya sea a través de pódcasts, charlas o seminarios, difundir la ciencia es una pasión.
-        </p>
+        <!-- El texto cambia según el idioma seleccionado -->
+        <p data-i18n="diss.text">I love researching and learning through research, but if there's something I'm even more passionate about, it's sharing all that knowledge. Whether through podcasts, talks, or seminars, spreading science is a passion of mine.</p>
       </div>
 
       <hr class="diss-divider">
@@ -867,6 +913,157 @@
     </div>
   </div>
 </section>
+
+<!-- ══ TRADUCCIONES (ES / GL) ═════════════════════════════════════
+     El inglés se toma directamente del HTML de arriba.
+     Para editar un texto en español o gallego, cambia aquí su clave.
+     Para traducir un texto nuevo: añade data-i18n="clave" al elemento
+     en el HTML y pon esa misma clave en "es" y "gl".
+════════════════════════════════════════════════════════════════════ -->
+<script>
+  const I18N = {
+    es: {
+      'nav.cv': 'CV',
+      'nav.research': 'Investigación',
+      'nav.teaching': 'Docencia',
+      'nav.dissemination': 'Divulgación científica',
+
+      'home.bio1': '¡Hola! Soy investigador predoctoral en la<br><a href="https://www.uc3m.es" target="_blank"><em>Universidad Carlos III de Madrid</em></a>.',
+      'home.bio2': 'Actualmente investigo los factores individuales que explican el apoyo a prácticas antidemocráticas, bajo la supervisión de Simon Chauchard.',
+      'home.bio3': '¡Te doy la bienvenida a mi página web!',
+
+      'cv.label': 'Curriculum Vitae',
+      'cv.education': 'Formación',
+      'cv.phd.year': '2025-2029 (previsto)',
+      'cv.phd.title': 'Doctorado en Ciencias Sociales',
+      'cv.phd.place': 'Universidad Carlos III de Madrid<br>Director: Simon Chauchard',
+      'cv.ma.title': 'Máster en Ciencias Sociales',
+      'cv.ma.place': 'Instituto Juan Linz (UC3M)',
+      'cv.ba.title': 'Doble Grado en Estudios Internacionales y Ciencias Políticas',
+      'cv.ba.place': 'Universidad Carlos III de Madrid',
+      'cv.interests': 'Líneas de investigación',
+      'cv.interests.row': 'Intereses',
+      'cv.interests.list': 'Psicología política · Política comparada · Violencia política',
+      'cv.projects': 'Proyectos',
+      'cv.proj.desc': 'Investigador predoctoral, UC3M.<br>IP: Simon Chauchard<br>Financiación: Agencia Estatal de Investigación (Gobierno de España) – Proyecto ATRAE',
+      'cv.btn': 'Ver CV (PDF)',
+
+      'research.label': 'Trabajo académico',
+      'research.intro': 'Aquí puedes encontrar mi investigación en curso.',
+      'paper1.status': 'Capítulo de libro (en revisión)',
+      'paper1.title': 'Misinformation, Polarization and Anti-Democratic Attitudes, en <i>The SAGE Handbook of Democratization</i>',
+      'paper2.status': 'Documento de trabajo',
+      'paper2.desc': 'Muestro cómo las comunidades de apoyo impulsan el reclutamiento terrorista a partir de datos municipales del País Vasco para el caso de ETA.',
+
+      'teach.sp.title': 'Psicología Social',
+      'teach.sp.meta': 'Grado en Ciencia Política, seminario de grado · Otoño 2026.',
+      'teach.cv.title': 'Conflicto y Violencia',
+      'teach.cv.meta': 'Doble Grado en Estudios Internacionales y Economía, seminario de grado · Otoño 2026.',
+      'teach.spcr.title': 'Seguridad, Paz y Resolución de Conflictos',
+      'teach.spcr.meta': 'Doble Grado en Estudios Internacionales y Economía, seminario de grado · Primavera 2026.',
+      'teach.wppv.title': 'Guerra, Paz y Violencia Política',
+      'teach.wppv.meta': 'Grado en Historia y Política, seminario de grado · Otoño 2025.',
+      'teach.syllabus': 'Programa',
+
+      'diss.label': 'Investigar, aprender y compartir',
+      'diss.title': 'Divulgación científica',
+      'diss.text': 'Me encanta investigar y aprender investigando, pero si hay algo que me apasiona aún más es compartir todo ese conocimiento. Ya sea a través de pódcasts, charlas o seminarios, difundir la ciencia es una pasión.'
+    },
+
+    gl: {
+      'nav.cv': 'CV',
+      'nav.research': 'Investigación',
+      'nav.teaching': 'Docencia',
+      'nav.dissemination': 'Divulgación científica',
+
+      'home.bio1': 'Ola! Son investigador predoutoral na<br><a href="https://www.uc3m.es" target="_blank"><em>Universidade Carlos III de Madrid</em></a>.',
+      'home.bio2': 'Actualmente investigo os factores individuais que explican o apoio a prácticas antidemocráticas, baixo a supervisión de Simon Chauchard.',
+      'home.bio3': 'Dóuche a benvida á miña páxina web!',
+
+      'cv.label': 'Curriculum Vitae',
+      'cv.education': 'Formación',
+      'cv.phd.year': '2025-2029 (previsto)',
+      'cv.phd.title': 'Doutoramento en Ciencias Sociais',
+      'cv.phd.place': 'Universidade Carlos III de Madrid<br>Director: Simon Chauchard',
+      'cv.ma.title': 'Mestrado en Ciencias Sociais',
+      'cv.ma.place': 'Instituto Juan Linz (UC3M)',
+      'cv.ba.title': 'Dobre Grao en Estudos Internacionais e Ciencia Política',
+      'cv.ba.place': 'Universidade Carlos III de Madrid',
+      'cv.interests': 'Liñas de investigación',
+      'cv.interests.row': 'Intereses',
+      'cv.interests.list': 'Psicoloxía política · Política comparada · Violencia política',
+      'cv.projects': 'Proxectos',
+      'cv.proj.desc': 'Investigador predoutoral, UC3M.<br>IP: Simon Chauchard<br>Financiamento: Agencia Estatal de Investigación (Goberno de España) – Proxecto ATRAE',
+      'cv.btn': 'Ver CV (PDF)',
+
+      'research.label': 'Traballo académico',
+      'research.intro': 'Aquí podes atopar a miña investigación en curso.',
+      'paper1.status': 'Capítulo de libro (en revisión)',
+      'paper1.title': 'Misinformation, Polarization and Anti-Democratic Attitudes, en <i>The SAGE Handbook of Democratization</i>',
+      'paper2.status': 'Documento de traballo',
+      'paper2.desc': 'Amoso como as comunidades de apoio impulsan o recrutamento terrorista a partir de datos municipais do País Vasco para o caso de ETA.',
+
+      'teach.sp.title': 'Psicoloxía Social',
+      'teach.sp.meta': 'Grao en Ciencia Política, seminario de grao · Outono 2026.',
+      'teach.cv.title': 'Conflito e Violencia',
+      'teach.cv.meta': 'Dobre Grao en Estudos Internacionais e Economía, seminario de grao · Outono 2026.',
+      'teach.spcr.title': 'Seguridade, Paz e Resolución de Conflitos',
+      'teach.spcr.meta': 'Dobre Grao en Estudos Internacionais e Economía, seminario de grao · Primavera 2026.',
+      'teach.wppv.title': 'Guerra, Paz e Violencia Política',
+      'teach.wppv.meta': 'Grao en Historia e Política, seminario de grao · Outono 2025.',
+      'teach.syllabus': 'Programa',
+
+      'diss.label': 'Investigar, aprender e compartir',
+      'diss.title': 'Divulgación científica',
+      'diss.text': 'Encántame investigar e aprender investigando, pero se hai algo que me apaixona aínda máis é compartir todo ese coñecemento. Xa sexa a través de pódcasts, charlas ou seminarios, difundir a ciencia é unha paixón.'
+    }
+  };
+
+  const LANGS = ['en', 'es', 'gl'];
+  const i18nEls = document.querySelectorAll('[data-i18n]');
+
+  // Guardamos el texto original (inglés) de cada elemento
+  const originals = new Map();
+  i18nEls.forEach(el => originals.set(el, el.innerHTML));
+
+  function setLang(lang) {
+    if (!LANGS.includes(lang)) lang = 'en';
+
+    i18nEls.forEach(el => {
+      const key = el.dataset.i18n;
+      const t = lang !== 'en' && I18N[lang] && I18N[lang][key];
+      el.innerHTML = t || originals.get(el); // si falta una traducción, se queda en inglés
+    });
+
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('.lang-switch button').forEach(b => {
+      const on = b.dataset.lang === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+
+  // Idioma inicial: ?lang=xx en la URL → idioma elegido antes → idioma del navegador → inglés
+  function initialLang() {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (LANGS.includes(q)) return q;
+    try {
+      const saved = localStorage.getItem('lang');
+      if (LANGS.includes(saved)) return saved;
+    } catch (e) {}
+    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    return LANGS.includes(nav) ? nav : 'en';
+  }
+
+  document.querySelectorAll('.lang-switch button').forEach(b => {
+    b.addEventListener('click', () => setLang(b.dataset.lang));
+  });
+
+  setLang(initialLang());
+</script>
 
 <!-- ══ SCRIPT DE NAVEGACIÓN Y COMPORTAMIENTO ════════════════════ -->
 <script>
