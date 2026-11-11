@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pablopardavila.github.io/sitemap.xml
